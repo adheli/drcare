@@ -29,3 +29,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### HSQLDB Files ###
+/drcaredb.lck
+/drcaredb.log
+/drcaredb.properties
+/drcaredb.script

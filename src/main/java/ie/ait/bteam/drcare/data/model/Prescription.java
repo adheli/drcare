@@ -29,8 +29,17 @@ public class Prescription implements Serializable {
 	@Setter
 	@Column
 	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss", iso = DateTimeFormat.ISO.DATE_TIME)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdDate;
+
+	@Getter
+	@Setter
+	@Column
+	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedDate;
 
 	@Getter
 	@Setter
@@ -39,20 +48,20 @@ public class Prescription implements Serializable {
 
 	@Getter
 	@Setter
-	@ManyToMany
-	@JoinTable(name = "prescription_users", joinColumns = {@JoinColumn(referencedColumnName = "id", name = "patient_id", nullable = false)})
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "patient_id", nullable = false)
 	private User patient;
 
 	@Getter
 	@Setter
-	@ManyToMany
-	@JoinTable(name = "prescription_users", joinColumns = {@JoinColumn(referencedColumnName = "id", name = "doctor_id", nullable = false)})
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "doctor_id", nullable = false)
 	private User doctor;
 
 	@Getter
 	@Setter
-	@ManyToMany
-	@JoinTable(name = "prescription_users", joinColumns = {@JoinColumn(referencedColumnName = "id", name = "pharmacist_id", nullable = false)})
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "pharmacist_id", nullable = false)
 	private User pharmacist;
 
 	@Getter

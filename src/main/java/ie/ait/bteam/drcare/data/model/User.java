@@ -70,5 +70,6 @@ public class User implements Serializable {
 	@Getter
 	@Setter
 	@ManyToMany(cascade = CascadeType.DETACH)
+	@JoinTable(name = "user_allergy", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "allergy_id"))
 	private List<Allergy> allergies;
 }
