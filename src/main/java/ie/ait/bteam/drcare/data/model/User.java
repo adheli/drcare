@@ -20,25 +20,22 @@ public class User implements Serializable {
 	@Getter
 	@Setter
 	@NotNull
-	@Column(unique = true)
+	@Column
 	private String name;
 
 	@Getter
 	@Setter
-	@NotNull
 	@Column(unique = true)
 	private String username;
 
 	@Getter
 	@Setter
 	@Column
-	@NotNull
 	private String password;
 
 	@Getter
 	@Setter
 	@Column
-	@NotNull
 	private String email;
 
 	@Getter

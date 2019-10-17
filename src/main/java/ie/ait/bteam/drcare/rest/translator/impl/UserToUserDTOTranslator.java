@@ -1,8 +1,9 @@
 package ie.ait.bteam.drcare.rest.translator.impl;
 
 import ie.ait.bteam.drcare.data.model.User;
-import ie.ait.bteam.drcare.rest.model.UserDTO;
+import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
+import ie.ait.bteam.drcare.util.PasswordUtil;
 import org.springframework.stereotype.Component;
 
 /**
@@ -33,7 +34,7 @@ public class UserToUserDTOTranslator implements Translator<User, UserDTO> {
 		user.setId(copy.getId());
 		user.setIsAdmin(copy.getIsAdmin());
 		user.setName(copy.getName());
-		user.setPassword(copy.getPassword());
+		user.setPassword(PasswordUtil.encode(copy.getPassword()));
 		user.setUsername(copy.getUsername());
 
 		return user;
