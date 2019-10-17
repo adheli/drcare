@@ -19,14 +19,14 @@ public class User implements Serializable {
 
 	@Getter
 	@Setter
-	@Column
 	@NotNull
+	@Column(unique = true)
 	private String name;
 
 	@Getter
 	@Setter
-	@Column
 	@NotNull
+	@Column(unique = true)
 	private String username;
 
 	@Getter
@@ -49,7 +49,7 @@ public class User implements Serializable {
 
 	@Getter
 	@Setter
-	@Column
+	@Column(unique = true)
 	private String licence;
 
 	@Getter
@@ -59,7 +59,7 @@ public class User implements Serializable {
 
 	@Getter
 	@Setter
-	@Column
+	@Column(unique = true)
 	private String patientEmergencyId;
 
 	@Getter

@@ -36,4 +36,8 @@ public class UserService {
 	public List<User> findByStaffType(String staffType) {
 		return this.userRepository.findByStaffType(staffType);
 	}
+
+	public List<User> findUsers() {
+		return this.userRepository.findAll();
+	}
 }
