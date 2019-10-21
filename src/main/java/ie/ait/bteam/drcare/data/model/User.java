@@ -9,66 +9,47 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class User implements Serializable {
 
-	@Getter
-	@Setter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Getter
-	@Setter
 	@Column
 	@NotNull
 	private String name;
 
-	@Getter
-	@Setter
 	@Column
 	@NotNull
 	private String username;
 
-	@Getter
-	@Setter
 	@Column
 	@NotNull
-	private String password;
+	@Transient
+	private transient String password;
 
-	@Getter
-	@Setter
 	@Column
 	@NotNull
 	private String email;
 
-	@Getter
-	@Setter
 	@Column
 	@NotNull
-	private Boolean isAdmin;
+	private Boolean isAdmin = false;
 
-	@Getter
-	@Setter
 	@Column
 	private String licence;
 
-	@Getter
-	@Setter
 	@Column
 	private String staffType;
 
-	@Getter
-	@Setter
 	@Column
 	private String patientEmergencyId;
 
-	@Getter
-	@Setter
 	@OneToOne(orphanRemoval = true)
 	private Address address;
 
-	@Getter
-	@Setter
 	@ManyToMany(cascade = CascadeType.DETACH)
 	@JoinTable(name = "user_allergy", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "allergy_id"))
 	private List<Allergy> allergies;
