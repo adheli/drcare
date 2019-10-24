@@ -25,7 +25,7 @@ public class User implements Serializable {
 
 	@Getter
 	@Setter
-	@Column(unique = true)
+	@Column
 	private String username;
 
 	@Getter
@@ -35,7 +35,7 @@ public class User implements Serializable {
 
 	@Getter
 	@Setter
-	@Column
+	@Column(unique = true)
 	private String email;
 
 	@Getter
