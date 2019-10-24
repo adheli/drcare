@@ -2,11 +2,8 @@
 package ie.ait.bteam.drcare.rest.endpoint;
 
 import ie.ait.bteam.drcare.data.model.GeneralPractitioner;
-import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.data.service.GeneralPractitionerService;
-import ie.ait.bteam.drcare.rest.model.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
