@@ -33,9 +33,9 @@ public class DrCareConfig extends WebSecurityConfigurerAdapter {
 //        return bean;
 //    }
 
-
         @Override
     protected void configure(HttpSecurity http) throws Exception {
+            http.cors().and().csrf().disable();
 //        http
 //                .authorizeRequests()
 //                .antMatchers("/js/**","/css/**","/img/**","/resources/**", "/gp-register", "/welcome").permitAll()

@@ -35,9 +35,9 @@ public class GeneralPractitionerService {
      * @return List<GeneralPractitioner>
      */
     public List<GeneralPractitioner> getAll(){
-        return getMock();
+        //return getMock();
 
-        //return generalPractitionerRepository.findAll();
+        return generalPractitionerRepository.findAll();
     }
 
     private List<GeneralPractitioner> getMock(){
