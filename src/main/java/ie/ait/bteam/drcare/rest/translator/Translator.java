@@ -1,10 +1,13 @@
 package ie.ait.bteam.drcare.rest.translator;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author adheli.tavares
  * @param <T1> Database model
  * @param <T2> REST api model
  */
+@Component
 public interface Translator<T1, T2> {
 
 	/**

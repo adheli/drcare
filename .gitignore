@@ -35,3 +35,4 @@ build/
 /drcaredb.log
 /drcaredb.properties
 /drcaredb.script
+/drcaredb.tmp/

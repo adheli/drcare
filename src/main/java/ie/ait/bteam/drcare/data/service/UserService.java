@@ -2,8 +2,10 @@ package ie.ait.bteam.drcare.data.service;
 
 import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.data.repository.UserRepository;
+import ie.ait.bteam.drcare.data.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
 
 import java.util.List;
 
@@ -21,7 +23,15 @@ public class UserService {
 		return this.userRepository.saveAndFlush(user);
 	}
 
+	public User createUser(User user, Errors errors) {
+		UserValidator userValidator = new UserValidator();
+		userValidator.validate(user, errors);
+		return this.userRepository.saveAndFlush(user);
+	}
+
 	public User findUser(User user) {
+		if (null != user.getUsername())
+			return userRepository.findUserByUsername(user.getUsername());
 		return this.userRepository.getOne(user.getId());
 	}
 
@@ -35,5 +45,17 @@ public class UserService {
 
 	public List<User> findByStaffType(String staffType) {
 		return this.userRepository.findByStaffType(staffType);
+	}
+
+	public List<User> findUsers() {
+		return this.userRepository.findAll();
+	}
+
+	public void deleteUser(Long userId) {
+		userRepository.deleteById(userId);
+	}
+
+	public void deleteUser(User user) {
+		userRepository.delete(user);
 	}
 }

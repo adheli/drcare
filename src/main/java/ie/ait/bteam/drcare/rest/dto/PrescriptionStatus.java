@@ -1,4 +1,4 @@
-package ie.ait.bteam.drcare.rest.model;
+package ie.ait.bteam.drcare.rest.dto;
 
 public enum PrescriptionStatus {
 
