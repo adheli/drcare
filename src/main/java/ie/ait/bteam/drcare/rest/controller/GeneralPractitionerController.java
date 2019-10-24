@@ -1,5 +1,5 @@
 
-package ie.ait.bteam.drcare.rest.endpoint;
+package ie.ait.bteam.drcare.rest.controller;
 
 import ie.ait.bteam.drcare.data.model.GeneralPractitioner;
 import ie.ait.bteam.drcare.data.service.GeneralPractitionerService;

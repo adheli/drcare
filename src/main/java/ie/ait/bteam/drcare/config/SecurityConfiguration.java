@@ -1,4 +1,4 @@
-package ie.ait.bteam.drcare.boot;
+package ie.ait.bteam.drcare.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

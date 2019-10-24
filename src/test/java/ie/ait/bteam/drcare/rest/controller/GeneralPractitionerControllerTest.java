@@ -1,5 +1,6 @@
-package ie.ait.bteam.drcare.rest.endpoint;
+package ie.ait.bteam.drcare.rest.controller;
 
+import ie.ait.bteam.drcare.rest.controller.GeneralPractitionerController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
