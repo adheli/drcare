@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GeneralPractitionerService {
@@ -27,7 +28,12 @@ public class GeneralPractitionerService {
      * @return the General Practitioner if found
      */
     public GeneralPractitioner get(Long id){
-        return generalPractitionerRepository.findById(id).get();
+        Optional<GeneralPractitioner> foundGP = generalPractitionerRepository.findById(id);
+        if(foundGP.isPresent()){
+            return foundGP.get();
+        }
+
+            return null;
     }
 
     /**
