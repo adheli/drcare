@@ -36,14 +36,13 @@ public class User implements Serializable {
 	@Getter
 	@Setter
 	@Column(unique = true)
-	@NotNull
 	private String email;
 
 	@Getter
 	@Setter
 	@Column
 	@NotNull
-	private Boolean isAdmin = false;
+	private Boolean isAdmin;
 
 	@Getter
 	@Setter
