@@ -1,6 +1,7 @@
 package ie.ait.bteam.drcare.rest.translator.impl;
 
 import ie.ait.bteam.drcare.data.model.User;
+import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
 import ie.ait.bteam.drcare.util.PasswordUtil;
@@ -23,6 +24,10 @@ public class UserToUserDTOTranslator implements Translator<User, UserDTO> {
 		dto.setName(original.getName());
 		dto.setPassword(original.getPassword());
 		dto.setUsername(original.getUsername());
+		if(original.getUserType() != null){
+			dto.setUserType(MedicalStaffType.valueOf(original.getUserType()));
+		}
+
 
 		return dto;
 	}
@@ -36,6 +41,10 @@ public class UserToUserDTOTranslator implements Translator<User, UserDTO> {
 		user.setName(copy.getName());
 		user.setPassword(PasswordUtil.encode(copy.getPassword()));
 		user.setUsername(copy.getUsername());
+		if(copy.getUserType() != null){
+			user.setUserType(copy.getUserType().toString());
+		}
+
 
 		return user;
 	}

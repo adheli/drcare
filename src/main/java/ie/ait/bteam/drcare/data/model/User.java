@@ -52,7 +52,7 @@ public class User implements Serializable {
 	@Getter
 	@Setter
 	@Column
-	private String staffType;
+	private String userType;
 
 	@Getter
 	@Setter
