@@ -14,19 +14,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 public class DrCareApplicationTests {
 
-	private GeneralPractitionerController generalPractitionerController;
-	private UserRestController userRestController;
-
-	@Autowired
-	public DrCareApplicationTests(GeneralPractitionerController generalPractitionerController,
-								  UserRestController userRestController) {
-		this.generalPractitionerController = generalPractitionerController;
-		this.userRestController = userRestController;
-	}
-
+	@Autowired private UserRestController userRestController;
+	
 	@Test
 	public void contextLoads() throws Exception{
-		assertThat(generalPractitionerController).isNotNull();
 		assertThat(userRestController).isNotNull();
 
 	}
