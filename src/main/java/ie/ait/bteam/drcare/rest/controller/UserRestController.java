@@ -46,6 +46,11 @@ public class UserRestController {
 		return new ResponseEntity<>(userRestService.listUsers(), HttpStatus.OK);
 	}
 
+	@GetMapping("listUserTypes")
+	public ResponseEntity<List<String>> listUserTypes() {
+		return new ResponseEntity<>(userRestService.listUserTypes(), HttpStatus.OK);
+	}
+
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
 		userRestService.deleteUser(userId);

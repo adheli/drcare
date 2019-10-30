@@ -2,6 +2,7 @@ package ie.ait.bteam.drcare.rest.service;
 
 import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.data.service.UserService;
+import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
 import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
@@ -11,6 +12,8 @@ import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author adheli.tavares
@@ -46,6 +49,10 @@ public class UserRestService {
 		List<UserDTO> userDTOS = new ArrayList<>();
 		userService.findUsers().forEach(user -> userDTOS.add(userTranslator.translateFrom(user)));
 		return userDTOS;
+	}
+
+	public List<String> listUserTypes(){
+		return Stream.of(MedicalStaffType.values()).map(MedicalStaffType::toString).collect(Collectors.toList());
 	}
 
 	public void deleteUser(Long userId) {
