@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	@Query("select u from User u where u.staffType = ?1")
-	List<User> findByStaffType(String staffType);
+	@Query("select u from User u where u.userType = ?1")
+	List<User> findByUserType(String userType);
 
-	@Query("select u from User u where u.staffType is null and isAdmin = false")
+	@Query("select u from User u where u.userType is null and isAdmin = false")
 	List<User> findPatients();
 
 	@Query("select u from User u where u.patientEmergencyId = ?1")

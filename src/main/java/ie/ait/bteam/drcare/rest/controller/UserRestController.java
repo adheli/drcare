@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user/")
+@RequestMapping(value={"/user/","/gp/"})
 public class UserRestController {
 
 	private UserRestService userRestService;
@@ -44,6 +44,11 @@ public class UserRestController {
 	@GetMapping("list")
 	public ResponseEntity<List<UserDTO>> listUsers() {
 		return new ResponseEntity<>(userRestService.listUsers(), HttpStatus.OK);
+	}
+
+	@GetMapping("listUserTypes")
+	public ResponseEntity<List<String>> listUserTypes() {
+		return new ResponseEntity<>(userRestService.listUserTypes(), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{userId}")

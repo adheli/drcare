@@ -43,8 +43,8 @@ public class UserService {
 		return this.userRepository.findPatients();
 	}
 
-	public List<User> findByStaffType(String staffType) {
-		return this.userRepository.findByStaffType(staffType);
+	public List<User> findByUserType(String userType) {
+		return this.userRepository.findByUserType(userType);
 	}
 
 	public List<User> findUsers() {

@@ -30,4 +30,8 @@ public class UserDTO implements Serializable {
 	@Getter
 	@Setter
 	private Boolean isAdmin;
+
+	@Getter
+	@Setter
+	private MedicalStaffType userType;
 }
