@@ -24,13 +24,14 @@ public class PharmacistRestControllerTest extends AbstractTest {
     public void createPharmacist() throws Exception {
         String uri = "/pharmacist/create";
         UserDTO pharmacist = new UserDTO();
-        pharmacist.setId((long) 2);
+
         pharmacist.setName("TestName");
         pharmacist.setUsername("TestUsername");
         pharmacist.setEmail("Testemail@qa.team");
         pharmacist.setPassword("password");
         pharmacist.setIsAdmin(false);
         pharmacist.setUserType(PHARMACIST);
+
         String inputJson = super.mapToJson(pharmacist);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
