@@ -30,6 +30,10 @@ public class UserRestService {
 		this.userTranslator = userTranslator;
 	}
 
+	public void setUserServiceForTest(UserService userService){
+		this.userService = userService;
+	}
+
 	public UserDTO createUser(UserDTO user, BindingResult result) {
 		User createdUser = userTranslator.translateTo(user);
 		createdUser = userService.createUser(createdUser, result);
