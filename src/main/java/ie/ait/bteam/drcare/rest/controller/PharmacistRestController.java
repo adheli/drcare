@@ -9,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+import static ie.ait.bteam.drcare.rest.dto.MedicalStaffType.PHARMACIST;
+
 @Controller
 @RequestMapping("/pharmacist")
 public class PharmacistRestController {
@@ -26,6 +30,11 @@ public class PharmacistRestController {
         UserDTO createdPharmacist = userRestService.createUser(user, result);
 
         return new ResponseEntity<>(createdPharmacist, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<UserDTO>> listUsers() {
+        return new ResponseEntity<>(userRestService.listUsersByType(PHARMACIST.name()), HttpStatus.OK);
     }
 
 }
