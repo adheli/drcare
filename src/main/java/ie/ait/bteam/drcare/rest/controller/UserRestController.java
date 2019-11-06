@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value={"/user/","/gp/","/other/"})
+@RequestMapping(value={"/user/","/gp/"})
 public class UserRestController {
 
 	private UserRestService userRestService;

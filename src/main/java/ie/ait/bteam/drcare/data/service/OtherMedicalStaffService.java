@@ -2,14 +2,25 @@ package ie.ait.bteam.drcare.data.service;
 
 import ie.ait.bteam.drcare.data.model.GeneralPractitioner;
 import ie.ait.bteam.drcare.data.model.OtherMedicalStaff;
+import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.data.repository.GeneralPractitionerRepository;
 import ie.ait.bteam.drcare.data.repository.OtherMedicalStaffRepository;
+import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
+import ie.ait.bteam.drcare.rest.dto.OtherMedicalStaffDTO;
+import ie.ait.bteam.drcare.rest.dto.UserDTO;
+import ie.ait.bteam.drcare.rest.service.UserRestService;
+import ie.ait.bteam.drcare.rest.translator.Translator;
+import ie.ait.bteam.drcare.rest.translator.impl.UserToOtherMedicalStaffTranslator;
+import ie.ait.bteam.drcare.util.ModelConversionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by Pelumi.Oyefeso on 05-Nov-2019
@@ -18,12 +29,21 @@ import java.util.Optional;
 public class OtherMedicalStaffService {
 
     private OtherMedicalStaffRepository otherMedicalStaffRepository;
-    private BCryptPasswordEncoder passwordEncoder;
+    private Translator<User, UserDTO> userTranslator;
+    private UserService userService;
+    private ModelConversionUtil modelConversionUtil;
+    private UserToOtherMedicalStaffTranslator userToOtherMedicalStaffTranslator;
 
     @Autowired
-    public OtherMedicalStaffService(OtherMedicalStaffRepository otherMedicalStaffRepository, BCryptPasswordEncoder passwordEncoder) {
+    public OtherMedicalStaffService(OtherMedicalStaffRepository otherMedicalStaffRepository, UserService userService,
+                                    ModelConversionUtil modelConversionUtil,
+                                    UserToOtherMedicalStaffTranslator userToOtherMedicalStaffTranslator,
+                                    @Qualifier("userToUserDTOTranslator") Translator<User, UserDTO> userTranslator) {
         this.otherMedicalStaffRepository = otherMedicalStaffRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.userTranslator = userTranslator;
+        this.userToOtherMedicalStaffTranslator = userToOtherMedicalStaffTranslator;
+        this.userService = userService;
+        this.modelConversionUtil = modelConversionUtil;
     }
 
     /**
@@ -31,10 +51,11 @@ public class OtherMedicalStaffService {
      * @param id id to search with
      * @return the other medical staff if found
      */
-    public OtherMedicalStaff get(Long id) {
-        Optional<OtherMedicalStaff> foundGP = otherMedicalStaffRepository.findById(id);
-        if (foundGP.isPresent()) {
-            return foundGP.get();
+    public OtherMedicalStaffDTO get(Long id) {
+        Optional<User> foundUser = otherMedicalStaffRepository.findOtherMedcialStaffById(id, MedicalStaffType.OTHER.toString());
+        if (foundUser.isPresent()) {
+            OtherMedicalStaff otherMedicalStaff = userToOtherMedicalStaffTranslator.translateFrom(foundUser.get());
+            return modelConversionUtil.translateToOtherMedicalStaffDTO(otherMedicalStaff);
         }
         return null;
     }
@@ -42,21 +63,30 @@ public class OtherMedicalStaffService {
     /**
      * Fetches all other medical staff
      *
-     * @return List<OtherMedicalStaff>
+     * @return List<OtherMedicalStaffDTO>
      */
-    public List<OtherMedicalStaff> getAll() {
-        //return getMock();
-
-        return otherMedicalStaffRepository.findAll();
+    public List<OtherMedicalStaffDTO> getAll() {
+        return otherMedicalStaffRepository.findAllOtherMedicalStaff(MedicalStaffType.OTHER.toString()).stream()
+                .map(user -> {
+                    return userToOtherMedicalStaffTranslator.translateFrom(user);
+                })
+                .map(otherMedicalStaff -> {
+                    return modelConversionUtil.translateToOtherMedicalStaffDTO(otherMedicalStaff);
+                })
+                .collect(Collectors.toList());
+                //.filter(otherMedicalStaff -> {return MedicalStaffType.OTHER.toString().equals(otherMedicalStaff.getUserType());})
     }
 
     /**
      * Create other medical staff
-     * @param otherMedicalStaff
+     * @param userDTO
+     * @param result
      * @return other medical staff
      */
-    public OtherMedicalStaff create(OtherMedicalStaff otherMedicalStaff){
-        otherMedicalStaff.setPassword(passwordEncoder.encode(otherMedicalStaff.getPassword()));
-        return  otherMedicalStaffRepository.save(otherMedicalStaff);
+    public OtherMedicalStaffDTO create(UserDTO userDTO, BindingResult result){
+        User createdUser = userTranslator.translateTo(userDTO);
+        createdUser = userService.createUser(createdUser, result);
+        OtherMedicalStaff otherMedicalStaff = userToOtherMedicalStaffTranslator.translateFrom(createdUser);
+        return  modelConversionUtil.translateToOtherMedicalStaffDTO(otherMedicalStaff);
     }
 }
