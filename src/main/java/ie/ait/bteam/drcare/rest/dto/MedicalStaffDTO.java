@@ -11,7 +11,7 @@ public class MedicalStaffDTO extends UserDTO implements Comparable<MedicalStaffD
 
 	@Getter
 	@Setter
-	private MedicalStaffType staffType;
+	private UserType staffType;
 
 	@Override
 	public int compareTo(MedicalStaffDTO o) {

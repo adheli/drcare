@@ -2,7 +2,7 @@ package ie.ait.bteam.drcare.rest.service;
 
 import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.data.service.UserService;
-import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
+import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
@@ -56,7 +56,7 @@ public class UserRestService {
 	}
 
 	public List<String> listUserTypes(){
-		return Stream.of(MedicalStaffType.values()).map(MedicalStaffType::toString).collect(Collectors.toList());
+		return Stream.of(UserType.values()).map(UserType::toString).collect(Collectors.toList());
 	}
 
 	public void deleteUser(Long userId) {
