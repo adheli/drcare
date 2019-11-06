@@ -33,5 +33,5 @@ public class UserDTO implements Serializable {
 
 	@Getter
 	@Setter
-	private MedicalStaffType userType;
+	private UserType userType;
 }
