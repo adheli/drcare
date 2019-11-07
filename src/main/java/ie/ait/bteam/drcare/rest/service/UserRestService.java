@@ -67,6 +67,13 @@ public class UserRestService {
 		return userTranslator.translateFrom(searchedUser);
 	}
 
+	public List<UserDTO> searchUserByUsernameAndType(String username, String userType) {
+		List<UserDTO> searchedUser = new ArrayList<>();
+		userService.findUserByUsernameAndType(username, userType).forEach(user -> searchedUser.add(userTranslator.translateFrom(user)));
+
+		return searchedUser;
+	}
+
 	public List<String> listUserTypes(){
 		return Stream.of(UserType.values()).map(UserType::toString).collect(Collectors.toList());
 	}

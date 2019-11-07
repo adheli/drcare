@@ -61,4 +61,21 @@ public class PharmacistRestControllerTest extends AbstractTest {
 
         assertTrue(pharmacistList.length > 0);
     }
+
+    @Test
+    public void searchPharmacistList() throws Exception {
+        String pathVar = "TestUsername";
+        String uri = "/pharmacist/search/"+pathVar;
+
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        UserDTO[] pharmacistList = super.mapFromJson(content, UserDTO[].class);
+        logger.info("Pharmacist list: " + content);
+
+        assertTrue(pharmacistList.length > 0);
+    }
 }
