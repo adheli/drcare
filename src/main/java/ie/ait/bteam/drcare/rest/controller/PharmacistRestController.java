@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static ie.ait.bteam.drcare.rest.dto.MedicalStaffType.PHARMACIST;
+import static ie.ait.bteam.drcare.rest.dto.UserType.PHARMACIST;
 
 @Controller
 @RequestMapping("/pharmacist")
