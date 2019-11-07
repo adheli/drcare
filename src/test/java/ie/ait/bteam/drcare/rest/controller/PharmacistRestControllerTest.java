@@ -74,7 +74,7 @@ public class PharmacistRestControllerTest extends AbstractTest {
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         UserDTO[] pharmacistList = super.mapFromJson(content, UserDTO[].class);
-        logger.info("Pharmacist list: " + content);
+        logger.info("Pharmacist result: " + content);
 
         assertTrue(pharmacistList.length > 0);
     }
