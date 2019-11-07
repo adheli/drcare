@@ -55,6 +55,12 @@ public class UserRestService {
 		return userDTOS;
 	}
 
+	public List<UserDTO> listUsersByType(String userType) {
+		List<UserDTO> userDTOS = new ArrayList<>();
+		userService.findByUserType(userType).forEach(user -> userDTOS.add(userTranslator.translateFrom(user)));
+		return userDTOS;
+  }
+  
 	public UserDTO searchUser(String username) {
 		User searchedUser = userService.findUser(username);
 

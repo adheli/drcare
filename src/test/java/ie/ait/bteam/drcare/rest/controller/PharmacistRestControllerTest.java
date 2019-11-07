@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static ie.ait.bteam.drcare.rest.dto.UserType.PHARMACIST;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 public class PharmacistRestControllerTest extends AbstractTest {
     private final static Logger logger = LoggerFactory.getLogger(PharmacistRestControllerTest.class);
@@ -43,5 +44,21 @@ public class PharmacistRestControllerTest extends AbstractTest {
         logger.info("Pharmacist created: " + content);
 
         assertEquals(content, content);
+    }
+
+    @Test
+    public void getPharmacistList() throws Exception {
+        String uri = "/pharmacist/list";
+
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        UserDTO[] pharmacistList = super.mapFromJson(content, UserDTO[].class);
+        logger.info("Pharmacist list: " + content);
+
+        assertTrue(pharmacistList.length > 0);
     }
 }
