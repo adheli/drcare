@@ -35,6 +35,10 @@ public class UserService {
 		return this.userRepository.getOne(user.getId());
 	}
 
+	public User findUser(String userName) {
+		return this.userRepository.findUserByUsername(userName);
+	}
+
 	public User findUser(Long userId) {
 		return this.userRepository.getOne(userId);
 	}

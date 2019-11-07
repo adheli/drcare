@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static ie.ait.bteam.drcare.rest.dto.MedicalStaffType.PHARMACIST;
+import static ie.ait.bteam.drcare.rest.dto.UserType.PHARMACIST;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
