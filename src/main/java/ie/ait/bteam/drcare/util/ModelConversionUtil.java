@@ -2,9 +2,9 @@ package ie.ait.bteam.drcare.util;
 
 import ie.ait.bteam.drcare.data.model.OtherMedicalStaff;
 import ie.ait.bteam.drcare.data.model.User;
-import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
 import ie.ait.bteam.drcare.rest.dto.OtherMedicalStaffDTO;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
+import ie.ait.bteam.drcare.rest.dto.UserType;
 import org.springframework.stereotype.Component;
 
 /**
@@ -37,7 +37,7 @@ public class ModelConversionUtil {
         otherMedicalStaffDTO.setName(otherMedicalStaff.getName());
         otherMedicalStaffDTO.setPassword(otherMedicalStaff.getPassword());
         otherMedicalStaffDTO.setUsername(otherMedicalStaff.getUsername());
-        otherMedicalStaffDTO.setUserType(MedicalStaffType.valueOf(otherMedicalStaff.getUserType()));
+        otherMedicalStaffDTO.setUserType(UserType.valueOf(otherMedicalStaff.getUserType()));
         return otherMedicalStaffDTO;
     }
 }
