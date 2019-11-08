@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,6 +59,27 @@ public class OtherMedicalStaffService {
             return modelConversionUtil.translateToOtherMedicalStaffDTO(otherMedicalStaff);
         }
         return null;
+    }
+
+    /**
+     * Gets other medical staff using the ID
+     * @param username username to search with
+     * @return the other medical staff if found
+     */
+    public List<OtherMedicalStaffDTO> get(String username) {
+        List<User> foundUsers = userService.findUserByUsernameAndType(username, UserType.OTHER.toString());
+        if(foundUsers == null){
+            return null;
+        }
+        else{
+            List<OtherMedicalStaffDTO> otherMedicalStaffDTOs = foundUsers.stream()
+            .map(foundUser -> {
+                return modelConversionUtil.translateToOtherMedicalStaffDTO(userToOtherMedicalStaffTranslator.translateFrom(foundUser));
+            })
+            .collect(Collectors.toList());
+            return otherMedicalStaffDTOs;
+        }
+
     }
 
     /**
