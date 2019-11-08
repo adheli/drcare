@@ -3,6 +3,7 @@ package ie.ait.bteam.drcare.util;
 import ie.ait.bteam.drcare.data.model.OtherMedicalStaff;
 import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.rest.dto.OtherMedicalStaffDTO;
+import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.dto.UserType;
 import org.springframework.stereotype.Component;
 

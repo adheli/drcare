@@ -43,16 +43,25 @@ public class OtherMedicalStaffController {
         return new ResponseEntity<>(otherMedicalStaffDTO, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="/fetch", method = RequestMethod.GET)
-    public ResponseEntity<OtherMedicalStaffDTO> fetch(@RequestParam(value = "id") Long otherMedicalStaffId){
-        OtherMedicalStaffDTO otherMedicalStaffDTO = otherMedicalStaffService.get(otherMedicalStaffId);
+    @RequestMapping(value="/fetch/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<OtherMedicalStaffDTO> fetch(@PathVariable("userId") Long userId){
+        OtherMedicalStaffDTO otherMedicalStaffDTO = otherMedicalStaffService.get(userId);
         if(otherMedicalStaffDTO == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(otherMedicalStaffDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = {"/fetch-all"}, method = RequestMethod.GET)
+    @RequestMapping(value="/search/{username}", method = RequestMethod.GET)
+    public ResponseEntity<List<OtherMedicalStaffDTO>> fetch(@PathVariable("username") String username){
+        List<OtherMedicalStaffDTO> otherMedicalStaffDTOs = otherMedicalStaffService.get(username);
+        if(otherMedicalStaffDTOs == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(otherMedicalStaffDTOs, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = {"/list"}, method = RequestMethod.GET)
     public ResponseEntity<List<OtherMedicalStaffDTO>> fetchAll() {
         List<OtherMedicalStaffDTO> otherMedicalStaffDTOS =  otherMedicalStaffService.getAll();
         if(otherMedicalStaffDTOS == null){
