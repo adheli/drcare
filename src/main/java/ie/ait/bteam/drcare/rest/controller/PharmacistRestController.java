@@ -1,6 +1,7 @@
 package ie.ait.bteam.drcare.rest.controller;
 
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
+import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.service.UserRestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static ie.ait.bteam.drcare.rest.dto.UserType.PHARMACIST;
 
 @Controller
 @RequestMapping("/pharmacist")
@@ -35,6 +37,17 @@ public class PharmacistRestController {
     @GetMapping("/list")
     public ResponseEntity<List<UserDTO>> listUsers() {
         return new ResponseEntity<>(userRestService.listUsersByType(UserType.PHARMACIST.name()), HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{username}")
+    @ResponseBody
+    public ResponseEntity<List<UserDTO>> searchUser(@PathVariable String username) {
+        try {
+            List<UserDTO> searchedUser = userRestService.searchUserByUsernameAndType(username, PHARMACIST.name());
+            return new ResponseEntity<>(searchedUser, HttpStatus.OK);
+        } catch (EntityNotFound entityNotFound) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
 }
