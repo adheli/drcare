@@ -39,6 +39,10 @@ public class UserService {
 		return this.userRepository.findUserByUsername(userName);
 	}
 
+	public List<User> findUserByUsernameAndType(String username, String userType) {
+		return this.userRepository.findByUsernameAndUserType(username, userType);
+	}
+
 	public User findUser(Long userId) {
 		return this.userRepository.getOne(userId);
 	}
