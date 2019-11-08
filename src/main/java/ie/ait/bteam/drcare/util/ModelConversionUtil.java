@@ -20,16 +20,13 @@ public class ModelConversionUtil {
         t.setPassword(user.getPassword());
         t.setUserType(user.getUserType());
         t.setAddress(user.getAddress());
-        t.setAllergies(user.getAllergies());
         t.setLicence(user.getLicence());
         t.setPatientEmergencyId(user.getPatientEmergencyId());
-        t.setPrescriptions(user.getPrescriptions());
         return t;
     }
 
     public OtherMedicalStaffDTO translateToOtherMedicalStaffDTO(OtherMedicalStaff otherMedicalStaff){
         OtherMedicalStaffDTO otherMedicalStaffDTO = new OtherMedicalStaffDTO();
-        otherMedicalStaffDTO.setPrescriptions(otherMedicalStaff.getPrescriptions());
         otherMedicalStaffDTO.setEmail(otherMedicalStaff.getEmail());
         otherMedicalStaffDTO.setId(otherMedicalStaff.getId());
         otherMedicalStaffDTO.setIsAdmin(otherMedicalStaff.getIsAdmin());

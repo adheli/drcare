@@ -1,8 +1,11 @@
 package ie.ait.bteam.drcare.rest.service;
 
 
+import ie.ait.bteam.drcare.data.model.Patient;
 import ie.ait.bteam.drcare.data.model.User;
+import ie.ait.bteam.drcare.data.service.PatientService;
 import ie.ait.bteam.drcare.data.service.UserService;
+import ie.ait.bteam.drcare.rest.dto.PatientDTO;
 import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
@@ -16,26 +19,33 @@ import java.util.List;
 @Service
 public class PatientRestService {
 
-    private UserService userService;
-    private Translator<User, UserDTO> userTranslator;
+    private PatientService patientService;
+    private Translator<Patient, PatientDTO> patientTranslator;
 
     @Autowired
-    public PatientRestService(UserService userService, Translator<User, UserDTO> userTranslator) {
-        this.userService = userService;
-        this.userTranslator = userTranslator;
+    public PatientRestService(PatientService patientService, Translator<Patient, PatientDTO> patientTranslator) {
+        this.patientService = patientService;
+        this.patientTranslator = patientTranslator;
     }
 
-    public UserDTO createPatient(UserDTO patient, BindingResult result) {
-        User createdPatient = userTranslator.translateTo(patient);
-        createdPatient.setUserType(UserType.PATIENT.toString());
-        createdPatient = userService.createUser(createdPatient, result);
+    public PatientDTO createPatient(PatientDTO patient, BindingResult result) {
+        Patient patientModel = patientTranslator.translateTo(patient);
+        patientModel = patientService.create(patientModel);
 
-        return userTranslator.translateFrom(createdPatient);
+        return patientTranslator.translateFrom(patientModel);
     }
 
-    public List<UserDTO> listPatients() {
-        List<UserDTO> userDTOS = new ArrayList<>();
-        userService.findByUserType(UserType.PATIENT.toString()).forEach(user -> userDTOS.add(userTranslator.translateFrom(user)));
-        return userDTOS;
+    public List<PatientDTO> listPatients() {
+        List<PatientDTO> patientDTOs = new ArrayList<>();
+
+        patientService.readAll().forEach(patient -> patientDTOs.add(patientTranslator.translateFrom(patient)));
+        return patientDTOs;
+    }
+
+    public List<PatientDTO>  searchByName(String name){
+        List<PatientDTO> patientDTOs = new ArrayList<>();
+
+        patientService.findByName(name).forEach(patient -> patientDTOs.add(patientTranslator.translateFrom(patient)));
+        return patientDTOs;
     }
 }

@@ -1,6 +1,7 @@
 package ie.ait.bteam.drcare.rest.controller;
 
 
+import ie.ait.bteam.drcare.rest.dto.PatientDTO;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.service.PatientRestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +25,16 @@ public class PatientController {
 
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<UserDTO> create(@RequestBody UserDTO user, BindingResult result) {
-        UserDTO createdPharmacist = patientRestService.createPatient(user, result);
+    public ResponseEntity<PatientDTO> create(@RequestBody PatientDTO patient, BindingResult result) {
+        PatientDTO createdPatient = patientRestService.createPatient(patient, result);
 
-        return new ResponseEntity<>(createdPharmacist, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
     }
 
     @GetMapping("list")
-    public ResponseEntity<List<UserDTO>> listUsers() {
+    public ResponseEntity<List<PatientDTO>> listUsers() {
         return new ResponseEntity<>(patientRestService.listPatients(), HttpStatus.OK);
     }
-    @GetMapping("")
+
 
 }

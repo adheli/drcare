@@ -19,6 +19,10 @@ public class PatientDTO extends UserDTO implements Comparable<PatientDTO> {
 	@Setter
 	private List<AllergyDTO> allergies;
 
+	@Getter
+	@Setter
+	private List<PrescriptionDTO> prescriptions;
+
 	@Override
 	public int compareTo(PatientDTO o) {
 		if (o.getId().compareTo(this.getId()) == 0)
