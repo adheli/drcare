@@ -1,20 +1,16 @@
 package ie.ait.bteam.drcare.data.service;
 
-import ie.ait.bteam.drcare.data.model.GeneralPractitioner;
 import ie.ait.bteam.drcare.data.model.OtherMedicalStaff;
 import ie.ait.bteam.drcare.data.model.User;
-import ie.ait.bteam.drcare.data.repository.GeneralPractitionerRepository;
 import ie.ait.bteam.drcare.data.repository.OtherMedicalStaffRepository;
-import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
 import ie.ait.bteam.drcare.rest.dto.OtherMedicalStaffDTO;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
-import ie.ait.bteam.drcare.rest.service.UserRestService;
+import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.translator.Translator;
 import ie.ait.bteam.drcare.rest.translator.impl.UserToOtherMedicalStaffTranslator;
 import ie.ait.bteam.drcare.util.ModelConversionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -52,7 +48,7 @@ public class OtherMedicalStaffService {
      * @return the other medical staff if found
      */
     public OtherMedicalStaffDTO get(Long id) {
-        Optional<User> foundUser = otherMedicalStaffRepository.findOtherMedcialStaffById(id, MedicalStaffType.OTHER.toString());
+        Optional<User> foundUser = otherMedicalStaffRepository.findOtherMedcialStaffById(id, UserType.OTHER.toString());
         if (foundUser.isPresent()) {
             OtherMedicalStaff otherMedicalStaff = userToOtherMedicalStaffTranslator.translateFrom(foundUser.get());
             return modelConversionUtil.translateToOtherMedicalStaffDTO(otherMedicalStaff);
@@ -66,7 +62,7 @@ public class OtherMedicalStaffService {
      * @return List<OtherMedicalStaffDTO>
      */
     public List<OtherMedicalStaffDTO> getAll() {
-        return otherMedicalStaffRepository.findAllOtherMedicalStaff(MedicalStaffType.OTHER.toString()).stream()
+        return otherMedicalStaffRepository.findAllOtherMedicalStaff(UserType.OTHER.toString()).stream()
                 .map(user -> {
                     return userToOtherMedicalStaffTranslator.translateFrom(user);
                 })
