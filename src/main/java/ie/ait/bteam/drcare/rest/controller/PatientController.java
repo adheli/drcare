@@ -34,5 +34,6 @@ public class PatientController {
     public ResponseEntity<List<UserDTO>> listUsers() {
         return new ResponseEntity<>(patientRestService.listPatients(), HttpStatus.OK);
     }
+    @GetMapping("")
 
 }
