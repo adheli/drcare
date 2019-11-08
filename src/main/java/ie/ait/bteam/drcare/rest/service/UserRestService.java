@@ -7,6 +7,7 @@ import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -25,7 +26,7 @@ public class UserRestService {
 	private Translator<User, UserDTO> userTranslator;
 
 	@Autowired
-	public UserRestService(UserService userService, Translator<User, UserDTO> userTranslator) {
+	public UserRestService(UserService userService, @Qualifier("userToUserDTOTranslator") Translator<User, UserDTO> userTranslator) {
 		this.userService = userService;
 		this.userTranslator = userTranslator;
 	}
