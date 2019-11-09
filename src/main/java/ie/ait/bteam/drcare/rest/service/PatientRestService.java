@@ -10,6 +10,7 @@ import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -23,13 +24,14 @@ public class PatientRestService {
     private Translator<Patient, PatientDTO> patientTranslator;
 
     @Autowired
-    public PatientRestService(PatientService patientService, Translator<Patient, PatientDTO> patientTranslator) {
+    public PatientRestService(PatientService patientService,@Qualifier("patientToPatientDTOTranslator") Translator<Patient, PatientDTO> patientTranslator) {
         this.patientService = patientService;
         this.patientTranslator = patientTranslator;
     }
 
     public PatientDTO createPatient(PatientDTO patient, BindingResult result) {
         Patient patientModel = patientTranslator.translateTo(patient);
+        System.out.println(patientModel);
         patientModel = patientService.create(patientModel);
 
         return patientTranslator.translateFrom(patientModel);

@@ -2,6 +2,7 @@ package ie.ait.bteam.drcare.data.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

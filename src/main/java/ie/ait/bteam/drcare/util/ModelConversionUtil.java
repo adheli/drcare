@@ -21,7 +21,6 @@ public class ModelConversionUtil {
         t.setUserType(user.getUserType());
         t.setAddress(user.getAddress());
         t.setLicence(user.getLicence());
-        t.setPatientEmergencyId(user.getPatientEmergencyId());
         return t;
     }
 

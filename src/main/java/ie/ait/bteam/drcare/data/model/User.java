@@ -11,12 +11,6 @@ import java.util.List;
 @Entity
 public class User extends Base implements Serializable {
 
-
-	@Getter
-	@Setter
-	@Column(unique = true)
-	private String patientEmergencyId;
-
 	@Getter
 	@Setter
 	@Column(unique = true)

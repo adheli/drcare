@@ -19,9 +19,6 @@ public interface UserRepository extends BaseRepository<User, Long> {
 	@Query("select u from User u where u.userType is null and isAdmin = false")
 	List<User> findPatients();
 
-	@Query("select u from User u where u.patientEmergencyId = ?1")
-	User findByPatientEmergencyId(String patientEmergencyId);
-
 	@Query("select u from User u where u.username = ?1")
 	User findUserByUsername(String username);
 

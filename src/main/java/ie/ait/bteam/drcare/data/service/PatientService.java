@@ -4,6 +4,7 @@ package ie.ait.bteam.drcare.data.service;
 import ie.ait.bteam.drcare.data.model.Patient;
 import ie.ait.bteam.drcare.data.repository.PatientRepository;
 import ie.ait.bteam.drcare.data.validator.UserValidator;
+import ie.ait.bteam.drcare.rest.dto.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -22,13 +23,15 @@ public class PatientService {
     }
 
     public Patient create(Patient patient){
+        patient.setUserType(UserType.PATIENT.name());
        return patientRepository.save(patient);
     }
 
     public Patient create(Patient patient, Errors errors){
+        patient.setUserType(UserType.PATIENT.name());
         UserValidator userValidator = new UserValidator();
         userValidator.validate(patient, errors);
-        return patientRepository.saveAndFlush(patient);
+        return patientRepository.save(patient);
     }
 
     public List<Patient> readAll(){
@@ -44,6 +47,6 @@ public class PatientService {
     }
 
     public List<Patient> findByName(String name) {
-        return patientRepository.findByName();
+        return patientRepository.findByName(name);
     }
 }
