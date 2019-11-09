@@ -56,7 +56,7 @@ public class OtherMedicalStaffController {
     public ResponseEntity<List<OtherMedicalStaffDTO>> fetch(@PathVariable("username") String username){
         List<OtherMedicalStaffDTO> otherMedicalStaffDTOs = otherMedicalStaffService.get(username);
         if(otherMedicalStaffDTOs == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
         }
         return new ResponseEntity<>(otherMedicalStaffDTOs, HttpStatus.OK);
     }
