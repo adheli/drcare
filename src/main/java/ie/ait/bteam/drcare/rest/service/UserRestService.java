@@ -2,11 +2,12 @@ package ie.ait.bteam.drcare.rest.service;
 
 import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.data.service.UserService;
-import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
+import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -25,9 +26,13 @@ public class UserRestService {
 	private Translator<User, UserDTO> userTranslator;
 
 	@Autowired
-	public UserRestService(UserService userService, Translator<User, UserDTO> userTranslator) {
+	public UserRestService(UserService userService, @Qualifier("userToUserDTOTranslator") Translator<User, UserDTO> userTranslator) {
 		this.userService = userService;
 		this.userTranslator = userTranslator;
+	}
+
+	public void setUserServiceForTest(UserService userService){
+		this.userService = userService;
 	}
 
 	public UserDTO createUser(UserDTO user, BindingResult result) {
@@ -51,8 +56,27 @@ public class UserRestService {
 		return userDTOS;
 	}
 
+	public List<UserDTO> listUsersByType(String userType) {
+		List<UserDTO> userDTOS = new ArrayList<>();
+		userService.findByUserType(userType).forEach(user -> userDTOS.add(userTranslator.translateFrom(user)));
+		return userDTOS;
+  }
+  
+	public UserDTO searchUser(String username) {
+		User searchedUser = userService.findUser(username);
+
+		return userTranslator.translateFrom(searchedUser);
+	}
+
+	public List<UserDTO> searchUserByUsernameAndType(String username, String userType) {
+		List<UserDTO> searchedUser = new ArrayList<>();
+		userService.findUserByUsernameAndType(username, userType).forEach(user -> searchedUser.add(userTranslator.translateFrom(user)));
+
+		return searchedUser;
+	}
+
 	public List<String> listUserTypes(){
-		return Stream.of(MedicalStaffType.values()).map(MedicalStaffType::toString).collect(Collectors.toList());
+		return Stream.of(UserType.values()).map(UserType::toString).collect(Collectors.toList());
 	}
 
 	public void deleteUser(Long userId) {

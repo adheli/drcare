@@ -1,10 +1,11 @@
 package ie.ait.bteam.drcare.rest.translator.impl;
 
 import ie.ait.bteam.drcare.data.model.User;
-import ie.ait.bteam.drcare.rest.dto.MedicalStaffType;
+import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
 import ie.ait.bteam.drcare.util.PasswordUtil;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
  * Class to map an User model to an UserDTO model and vice-versa.
  */
 @Component
+@Qualifier("userToUserDTOTranslator")
 public class UserToUserDTOTranslator implements Translator<User, UserDTO> {
 
 	@Override
@@ -25,7 +27,7 @@ public class UserToUserDTOTranslator implements Translator<User, UserDTO> {
 		dto.setPassword(original.getPassword());
 		dto.setUsername(original.getUsername());
 		if(original.getUserType() != null){
-			dto.setUserType(MedicalStaffType.valueOf(original.getUserType()));
+			dto.setUserType(UserType.valueOf(original.getUserType()));
 		}
 
 
