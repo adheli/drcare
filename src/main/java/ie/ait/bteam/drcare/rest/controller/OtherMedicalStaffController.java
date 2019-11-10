@@ -43,6 +43,12 @@ public class OtherMedicalStaffController {
         return new ResponseEntity<>(otherMedicalStaffDTO, HttpStatus.CREATED);
     }
 
+    /*@RequestMapping(value="/update", method = RequestMethod.POST)
+    public ResponseEntity<OtherMedicalStaffDTO> update(@RequestBody UserDTO userToCreate, BindingResult result){
+        OtherMedicalStaffDTO otherMedicalStaffDTO = otherMedicalStaffService.update(userToCreate, result);
+        return new ResponseEntity<>(otherMedicalStaffDTO, HttpStatus.OK);
+    }*/
+
     @RequestMapping(value="/fetch/{userId}", method = RequestMethod.GET)
     public ResponseEntity<OtherMedicalStaffDTO> fetch(@PathVariable("userId") Long userId){
         OtherMedicalStaffDTO otherMedicalStaffDTO = otherMedicalStaffService.get(userId);
@@ -52,11 +58,20 @@ public class OtherMedicalStaffController {
         return new ResponseEntity<>(otherMedicalStaffDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/search/{username}", method = RequestMethod.GET)
-    public ResponseEntity<List<OtherMedicalStaffDTO>> fetch(@PathVariable("username") String username){
+    @RequestMapping(value={"/search/{username}"}, method = RequestMethod.GET)
+    public ResponseEntity<List<OtherMedicalStaffDTO>> search(@PathVariable("username") String username){
         List<OtherMedicalStaffDTO> otherMedicalStaffDTOs = otherMedicalStaffService.get(username);
         if(otherMedicalStaffDTOs == null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(otherMedicalStaffDTOs, HttpStatus.OK);
+    }
+
+    @RequestMapping(value={"/search/"}, method = RequestMethod.GET)
+    public ResponseEntity<List<OtherMedicalStaffDTO>> searchEmpty(){
+        List<OtherMedicalStaffDTO> otherMedicalStaffDTOs = otherMedicalStaffService.get("");
+        if(otherMedicalStaffDTOs == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(otherMedicalStaffDTOs, HttpStatus.OK);
     }
