@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("select u from User u where u.userType = ?1")
 	List<User> findByUserType(String userType);
 
-	@Query("select u from User u where u.username = ?1 and u.userType = ?2")
+	@Query("select u from User u where u.username like %:username% and u.userType = :userType")
 	List<User> findByUsernameAndUserType(String username, String userType);
 
 	@Query("select u from User u where u.userType is null and isAdmin = false")

@@ -111,4 +111,17 @@ public class OtherMedicalStaffService {
         OtherMedicalStaff otherMedicalStaff = userToOtherMedicalStaffTranslator.translateFrom(createdUser);
         return  modelConversionUtil.translateToOtherMedicalStaffDTO(otherMedicalStaff);
     }
+
+    /**
+     * Update other medical staff
+     * @param userDTO
+     * @param result
+     * @return other medical staff
+     */
+    /*public OtherMedicalStaffDTO update(UserDTO userDTO, BindingResult result){
+        User user = userTranslator.translateTo(userDTO);
+        user = otherMedicalStaffRepository.updateUser(user, result);
+        OtherMedicalStaff otherMedicalStaff = userToOtherMedicalStaffTranslator.translateFrom(user);
+        return  modelConversionUtil.translateToOtherMedicalStaffDTO(otherMedicalStaff);
+    }*/
 }
