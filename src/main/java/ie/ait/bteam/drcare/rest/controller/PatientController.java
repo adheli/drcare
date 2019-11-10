@@ -46,7 +46,7 @@ public class PatientController {
             List<UserDTO> searchedPatient = userRestService.searchUserByUsernameAndType(username, PATIENT.name());
             return new ResponseEntity<>(searchedPatient, HttpStatus.OK);
         } catch (EntityNotFound entityNotFound) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);  
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);   
         }
     }
 
