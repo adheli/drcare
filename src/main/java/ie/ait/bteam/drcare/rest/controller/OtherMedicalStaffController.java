@@ -40,7 +40,7 @@ public class OtherMedicalStaffController {
     @RequestMapping(value="/create", method = RequestMethod.POST)
     public ResponseEntity<OtherMedicalStaffDTO> create(@RequestBody UserDTO userToCreate, BindingResult result){
         OtherMedicalStaffDTO otherMedicalStaffDTO = otherMedicalStaffService.create(userToCreate, result);
-        return new ResponseEntity<>(otherMedicalStaffDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(otherMedicalStaffDTO, HttpStatus.CREATED);  
     }
 
     /*@RequestMapping(value="/update", method = RequestMethod.POST)
