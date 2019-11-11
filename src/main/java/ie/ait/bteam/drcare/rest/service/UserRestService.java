@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,6 +41,20 @@ public class UserRestService {
 		createdUser = userService.createUser(createdUser, result);
 
 		return userTranslator.translateFrom(createdUser);
+	}
+
+	public UserDTO updateUser(UserDTO user, BindingResult result) {
+		User userDetails = userService.findUser(user.getId());
+
+		if (userDetails.getId() == user.getId()) {
+			User updatedUser = userTranslator.translateTo(user);
+			updatedUser = userService.updateUser(updatedUser, result);
+
+			return userTranslator.translateFrom(updatedUser);
+		} else {
+			throw new EntityNotFound(user.getId());
+		}
+
 	}
 
 	public UserDTO userDetails(Long userId) {

@@ -34,6 +34,14 @@ public class PharmacistRestController {
         return new ResponseEntity<>(createdPharmacist, HttpStatus.CREATED);
     }
 
+    @PutMapping("/update")
+    @ResponseBody
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO user, BindingResult result) {
+        UserDTO updatedPharmacist = userRestService.updateUser(user, result);
+
+        return new ResponseEntity<>(updatedPharmacist, HttpStatus.OK);
+    }
+
     @GetMapping("/list")
     public ResponseEntity<List<UserDTO>> listUsers() {
         return new ResponseEntity<>(userRestService.listUsersByType(UserType.PHARMACIST.name()), HttpStatus.OK);
