@@ -38,7 +38,9 @@ public class PharmacistRestController {
     @ResponseBody
     public ResponseEntity<UserDTO> update(@RequestBody UserDTO user, BindingResult result) {
         UserDTO updatedPharmacist = userRestService.updateUser(user, result);
-
+        if(updatedPharmacist == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(updatedPharmacist, HttpStatus.OK);
     }
 
@@ -51,6 +53,7 @@ public class PharmacistRestController {
     @ResponseBody
     public ResponseEntity<List<UserDTO>> searchUser(@PathVariable String username) {
         try {
+            username = username == null? "" : username;
             List<UserDTO> searchedUser = userRestService.searchUserByUsernameAndType(username, PHARMACIST.name());
             return new ResponseEntity<>(searchedUser, HttpStatus.OK);
         } catch (EntityNotFound entityNotFound) {

@@ -6,6 +6,7 @@ import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.translator.Translator;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -45,15 +46,20 @@ public class UserRestService {
 
 	public UserDTO updateUser(UserDTO user, BindingResult result) {
 		User userDetails = userService.findUser(user.getId());
-
-		if (userDetails.getId() == user.getId()) {
-			User updatedUser = userTranslator.translateTo(user);
-			updatedUser = userService.updateUser(updatedUser, result);
-
-			return userTranslator.translateFrom(updatedUser);
-		} else {
-			throw new EntityNotFound(user.getId());
+		if(userDetails == null){
+			return null;
 		}
+
+		BeanUtils.copyProperties(user, userDetails, "password");
+
+		/*userDetails.setEmail(user.getEmail());
+		userDetails.setUsername(user.getUsername());
+		userDetails.setName(user.getName());
+		userDetails.setIsAdmin(user.getIsAdmin());
+		userDetails.setUserType(user.getUserType().toString());*/
+
+		userDetails = userService.updateUser(userDetails, result);
+		return userTranslator.translateFrom(userDetails);
 
 	}
 

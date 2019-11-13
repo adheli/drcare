@@ -4,6 +4,7 @@ package ie.ait.bteam.drcare.rest.controller;
 import ie.ait.bteam.drcare.data.model.GeneralPractitioner;
 import ie.ait.bteam.drcare.data.service.GeneralPractitionerService;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
+import ie.ait.bteam.drcare.rest.dto.UserType;
 import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.service.UserRestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,9 @@ public class GeneralPractitionerController {
     @PostMapping("create")
     @ResponseBody
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userToCreate, BindingResult result) {
+        userToCreate.setUserType(UserType.GP);
         UserDTO createdUser = userRestService.createUser(userToCreate, result);
+
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
@@ -47,11 +50,21 @@ public class GeneralPractitionerController {
         }
     }
 
+    @PutMapping("/update")
+    @ResponseBody
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO user, BindingResult result) {
+        UserDTO updatedPharmacist = userRestService.updateUser(user, result);
+        if(updatedPharmacist == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(updatedPharmacist, HttpStatus.OK);
+    }
+
     @GetMapping("search/{username}")
     @ResponseBody
-    public ResponseEntity<UserDTO> searchUsers(@PathVariable String username) {
+    public ResponseEntity<List<UserDTO>> searchUsers(@PathVariable String username) {
         try {
-            UserDTO searchedUser = userRestService.searchUser(username);
+            List<UserDTO> searchedUser = userRestService.searchUserByUsernameAndType(username, UserType.GP.name());
             return new ResponseEntity<>(searchedUser, HttpStatus.OK);
         } catch (EntityNotFound entityNotFound) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -60,12 +73,7 @@ public class GeneralPractitionerController {
 
     @GetMapping("list")
     public ResponseEntity<List<UserDTO>> listUsers() {
-        return new ResponseEntity<>(userRestService.listUsers(), HttpStatus.OK);
-    }
-
-    @GetMapping("listUserTypes")
-    public ResponseEntity<List<String>> listUserTypes() {
-        return new ResponseEntity<>(userRestService.listUserTypes(), HttpStatus.OK);
+        return new ResponseEntity<>(userRestService.listUsersByType(UserType.GP.name()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")
