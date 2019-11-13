@@ -21,7 +21,6 @@ public class UserServiceTest {
     @Before
     public void setUp() throws Exception {
         userservice = new UserService(repo);
-        //userservice = Mockito.mock(UserService.class);
     }
 
     @Test

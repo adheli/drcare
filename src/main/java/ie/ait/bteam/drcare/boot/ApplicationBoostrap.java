@@ -32,7 +32,7 @@ public class ApplicationBoostrap implements ApplicationListener<ContextRefreshed
 	private void initialize() {
 		User userAdmin = new User();
 		userAdmin.setUsername("admin");
-		userAdmin.setPassword(PasswordUtil.encode("foobar"));
+		userAdmin.setPassword(new PasswordUtil().encode("foobar"));
 		userAdmin.setName("Administrator");
 		userAdmin.setEmail("admin@drcare.hse.ie");
 		userAdmin.setIsAdmin(true);
