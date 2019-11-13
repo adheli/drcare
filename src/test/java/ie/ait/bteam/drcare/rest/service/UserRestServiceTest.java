@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
 
 public class UserRestServiceTest {
 
@@ -38,6 +39,15 @@ public class UserRestServiceTest {
         assertNotNull(resultTypes);
         assertEquals(4, resultTypes.size());
 
+    }
+
+    @Test
+    public void searchUserByUsernameAndType(){
+        Mockito.when(userService.findUserByUsernameAndType(anyString(),anyString())).thenReturn(getSampleUsers());
+        assertNotNull(service);
+        List<UserDTO> result = service.searchUserByUsernameAndType("suchi","GP");
+        assertNotNull(result);
+        assertTrue(result.size() > 0);
     }
 
     private List<String> getTestUserTypes(){
