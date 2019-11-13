@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,6 +28,13 @@ public class UserService {
 		UserValidator userValidator = new UserValidator();
 		userValidator.validate(user, errors);
 		return this.userRepository.saveAndFlush(user);
+	}
+
+	public User updateUser(User user, Errors errors) {
+		// UserValidator userValidator = new UserValidator();
+		// userValidator.validate(user, errors);
+
+		return this.userRepository.save(user);
 	}
 
 	public User findUser(User user) {

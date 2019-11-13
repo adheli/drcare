@@ -15,7 +15,7 @@ public class ResponseFilter implements Filter {
 
         httpServletResponse.setHeader("Access-Control-Allow-Headers", "*");
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
-        httpServletResponse.setHeader("Access-Control-Allow-Methods","POST, GET, OPTIONS, DELETE");
+        httpServletResponse.setHeader("Access-Control-Allow-Methods","POST, PUT, HEAD, GET, OPTIONS, DELETE");
 
         chain.doFilter(request, response);
     }
