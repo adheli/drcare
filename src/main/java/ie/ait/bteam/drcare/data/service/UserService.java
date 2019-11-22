@@ -3,8 +3,10 @@ package ie.ait.bteam.drcare.data.service;
 import ie.ait.bteam.drcare.data.model.User;
 import ie.ait.bteam.drcare.data.repository.UserRepository;
 import ie.ait.bteam.drcare.data.validator.UserValidator;
+import ie.ait.bteam.drcare.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 
 import java.util.List;
@@ -74,4 +76,17 @@ public class UserService {
 	public void deleteUser(User user) {
 		userRepository.delete(user);
 	}
+
+    public User loginUser(String email, String username, String password) {
+		if(StringUtils.isEmpty(email) && StringUtils.isEmpty(username)){
+			return null;
+		}
+
+		if(StringUtils.isEmpty(email)){
+			return userRepository.findUserByUsernameAndPassword(username, PasswordUtil.encode(password));
+		}
+
+		return userRepository.findUserByEmailAndPassword(email, PasswordUtil.encode(password));
+
+    }
 }
