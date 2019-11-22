@@ -101,4 +101,14 @@ public class UserRestService {
 	public void deleteUser(Long userId) {
 		userService.deleteUser(userId);
 	}
+
+
+	public UserDTO loginUser(String email, String username, String password) {
+
+		User createdUser = userService.loginUser(email, username, password);
+		if(createdUser == null){
+			return null;
+		}
+		return userTranslator.translateFrom(createdUser);
+	}
 }

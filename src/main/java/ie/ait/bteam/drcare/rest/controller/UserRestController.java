@@ -1,5 +1,6 @@
 package ie.ait.bteam.drcare.rest.controller;
 
+import ie.ait.bteam.drcare.rest.dto.UserLoginDTO;
 import ie.ait.bteam.drcare.rest.exceptions.EntityNotFound;
 import ie.ait.bteam.drcare.rest.dto.UserDTO;
 import ie.ait.bteam.drcare.rest.service.UserRestService;
@@ -55,5 +56,15 @@ public class UserRestController {
 	public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
 		userRestService.deleteUser(userId);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PostMapping("login")
+	@ResponseBody
+	public ResponseEntity<UserDTO> loginUser(@RequestBody UserLoginDTO userToCreate) {
+		UserDTO createdUser = userRestService.loginUser(userToCreate.getEmail(), userToCreate.getUsername(), userToCreate.getPassword());
+		if(createdUser == null){
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(createdUser, HttpStatus.OK);
 	}
 }
