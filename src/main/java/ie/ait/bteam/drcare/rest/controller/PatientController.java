@@ -34,6 +34,16 @@ public class PatientController {
         return new ResponseEntity<>(createdPatient, HttpStatus.CREATED);
     }
 
+    @PutMapping("/update")
+    @ResponseBody
+    public ResponseEntity<UserDTO> update(@RequestBody UserDTO user, BindingResult result){
+        UserDTO updatedPatient = userRestService.updateUser(user, result);
+        if(updatedPatient == null){
+            return  new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<> (updatedPatient, HttpStatus.OK);
+    }
+
     @GetMapping("list")
     public ResponseEntity<List<UserDTO>> listUsers() {
         return new ResponseEntity<>(userRestService.listUsersByType(UserType.PATIENT.name()), HttpStatus.OK);
