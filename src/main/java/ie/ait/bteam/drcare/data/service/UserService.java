@@ -78,15 +78,25 @@ public class UserService {
 	}
 
     public User loginUser(String email, String username, String password) {
+		User foundUser = null;
 		if(StringUtils.isEmpty(email) && StringUtils.isEmpty(username)){
-			return null;
+			return foundUser;
 		}
 
 		if(StringUtils.isEmpty(email)){
-			return userRepository.findUserByUsernameAndPassword(username, PasswordUtil.encode(password));
+			foundUser = userRepository.findUserByUsername(username);
+		}else {
+			foundUser = userRepository.findUserByEmail(email);
 		}
 
-		return userRepository.findUserByEmailAndPassword(email, PasswordUtil.encode(password));
+		if(foundUser == null){
+			return null;
+		}
 
+		if(! PasswordUtil.matches(password, foundUser.getPassword())){
+			return null;
+		}
+
+		return foundUser;
     }
 }
